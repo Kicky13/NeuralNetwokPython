@@ -45,7 +45,7 @@ class NeuralNetwork:
         dsum = []
         for i in range(len(self.outputLayers.neurons)):
             dsum.append(math.exp(-self.outputLayers.neurons[i].sum()) / (
-                        (1 + math.exp(-self.outputLayers.neurons[i].sum())) ** 2))
+                    (1 + math.exp(-self.outputLayers.neurons[i].sum())) ** 2))
 
         # turunan sum thd input
         dweight = []
@@ -63,3 +63,27 @@ class NeuralNetwork:
                 b.append(self.outputLayers.neurons[i].weights[j] - self.learningRate * turunan)
             a.append(b)
         return a
+
+    def derivativeOutputToInput(self):
+        newWeight = []
+        for i in range(len(self.hiddenLayers.neurons)):
+            total = 0
+            for j in range(len(self.outputLayers.neurons)):
+                # turunan error thd output
+                # -(target - output)
+                dout = -1 * (self.target[j] - self.outputLayers.neurons[j].getOutput())
+                # turunan output thd net
+                dsum = math.exp(-self.outputLayers.neurons[j].sum()) / (
+                            (1 + math.exp(-self.outputLayers.neurons[j].sum())) ** 2)
+                # turunan net thd input dr neuron hidden
+                dinputh = self.outputLayers.neurons[j].getWeights()[i]
+                total += dout * dsum * dinputh
+            # turunan output thd summing junction
+            dsum = math.exp(-self.hiddenLayers.neurons[i].sum()) / ((1 + math.exp(-self.hiddenLayers.neurons[i].sum())) ** 2)
+            a = []
+            for k in range(len(self.hiddenLayers.neurons[i].weights)):
+                turunan = dsum * total * self.inputs[k]
+                a.append(self.hiddenLayers.neurons[i].weights[k] - self.learningRate * turunan)
+            newWeight.append(a)
+        return newWeight
+
