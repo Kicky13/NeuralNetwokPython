@@ -76,7 +76,7 @@ class NeuralNetwork:
                 dsum = math.exp(-self.outputLayers.neurons[j].sum()) / (
                             (1 + math.exp(-self.outputLayers.neurons[j].sum())) ** 2)
                 # turunan net thd input dr neuron hidden
-                dinputh = self.outputLayers.neurons[j].getWeights()[i]
+                dinputh = self.outputLayers.neurons[j].weights[i]
                 total += dout * dsum * dinputh
             # turunan output thd summing junction
             dsum = math.exp(-self.hiddenLayers.neurons[i].sum()) / ((1 + math.exp(-self.hiddenLayers.neurons[i].sum())) ** 2)
@@ -96,10 +96,10 @@ class NeuralNetwork:
             self.hiddenLayers.neurons[i].weights = w[i]
 
     def trainingDataset(self):
-        for i in range(10000):
+        for i in range(100000):
             for dataset in self.dataset:
                 self.feedForward(dataset[0])
                 self.getErrorTotal(dataset[1])
                 self.train()
         for dataset in self.dataset:
-            self.feedForward(dataset[0])
+            print(self.feedForward(dataset[0]))
