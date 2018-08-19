@@ -16,9 +16,5 @@ class NeuronLayer:
         outputs = []
         for i in range(len(self.neurons)):
             self.neurons[i].setInputs(inputs)
-            print("bobot")
-            print(self.neurons[i].weights)
-            print("input")
-            print(self.neurons[i].input)
             outputs.append(self.neurons[i].getOutput())
         return outputs
