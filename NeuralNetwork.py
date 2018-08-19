@@ -87,3 +87,11 @@ class NeuralNetwork:
             newWeight.append(a)
         return newWeight
 
+    def train(self):
+        w = self.derivativeOutputToHidden()
+        for i in range(len(self.outputLayers.neurons)):
+            self.outputLayers.neurons[i].weights = w[i]
+        w = self.derivativeOutputToInput()
+        for i in range(len(self.hiddenLayers.neurons)):
+            self.hiddenLayers.neurons[i].weights = w[i]
+
