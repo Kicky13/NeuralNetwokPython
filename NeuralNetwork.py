@@ -95,3 +95,11 @@ class NeuralNetwork:
         for i in range(len(self.hiddenLayers.neurons)):
             self.hiddenLayers.neurons[i].weights = w[i]
 
+    def trainingDataset(self):
+        for i in range(10000):
+            for dataset in self.dataset:
+                self.feedForward(dataset[0])
+                self.getErrorTotal(dataset[1])
+                self.train()
+        for dataset in self.dataset:
+            self.feedForward(dataset[0])
