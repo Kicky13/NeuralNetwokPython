@@ -13,9 +13,3 @@ class Datasets(Model):
 
     class Meta:
         database = mysql_db # This model uses the "people.db" database.
-
-
-grandma = Datasets.select()
-
-for p in grandma:
-    print p.kelas
