@@ -101,9 +101,9 @@ class NeuralNetwork:
                 self.feedForward(dataset[0])
                 self.getErrorTotal(dataset[1])
                 self.train()
-        for neuron in  self.hiddenLayers.neurons:
-            print neuron.weights
+        for neuron_hidden in  self.hiddenLayers.neurons:
+            print neuron_hidden.weights
         print "a"
-        for neuron in  self.outputLayers.neurons:
-            print neuron.weights
+        for neuron_output in  self.outputLayers.neurons:
+            print neuron_output.weights
 
