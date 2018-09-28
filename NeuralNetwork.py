@@ -5,36 +5,36 @@ import math
 class NeuralNetwork:
     learningRate = 0.5
 
-    def __init__(self, neuronHiddenCount, neuronOutputCount, inputCount):
-        self.neuronHiddenCount = neuronHiddenCount
-        self.neuronOutputCount = neuronOutputCount
-        self.inputCount = inputCount
-        self.hiddenLayers = NeuronLayer.NeuronLayer(neuronHiddenCount, 0.35)
-        self.outputLayers = NeuronLayer.NeuronLayer(neuronOutputCount, 0.6)
+    def __init__(self, neuron_hidden_count, neuron_output_count, input_count):
+        self.neuronHiddenCount = neuron_hidden_count
+        self.neuronOutputCount = neuron_output_count
+        self.inputCount = input_count
+        self.hiddenLayers = NeuronLayer.NeuronLayer(neuron_hidden_count, 0.35)
+        self.outputLayers = NeuronLayer.NeuronLayer(neuron_output_count, 0.6)
         self.dataset = []
 
-    def addDataset(self, data):
+    def add_dataset(self, data):
         self.dataset.append(data)
 
-    def setHiddenLayerWeight(self, weight):
-        self.hiddenLayers.setWeights(weight)
+    def set_hidden_layer_weight(self, weight):
+        self.hiddenLayers.set_weights(weight)
 
-    def setOutputLayerWeight(self, weight):
-        self.outputLayers.setWeights(weight)
+    def set_output_layer_weight(self, weight):
+        self.outputLayers.set_weights(weight)
 
-    def feedForward(self, inputs):
+    def feed_forward(self, inputs):
         self.inputs = inputs
-        y = self.hiddenLayers.feedForward(inputs)
-        return self.outputLayers.feedForward(y)
+        y = self.hiddenLayers.feed_forward(inputs)
+        return self.outputLayers.feed_forward(y)
 
-    def getErrorTotal(self, target):
+    def get_error_total(self, target):
         self.target = target
         self.error = []
         for i in range(len(self.outputLayers.neurons)):
             self.error.append(self.outputLayers.neurons[i].calculateError(target[i]))
         return sum(self.error)
 
-    def derivativeOutputToHidden(self):
+    def derivative_output_to_hidden(self):
         # turunan error total thd output
         # -(target - output)
         dout = []
@@ -64,8 +64,8 @@ class NeuralNetwork:
             a.append(b)
         return a
 
-    def derivativeOutputToInput(self):
-        newWeight = []
+    def derivative_output_to_input(self):
+        new_weight = []
         for i in range(len(self.hiddenLayers.neurons)):
             total = 0
             for j in range(len(self.outputLayers.neurons)):
@@ -84,26 +84,26 @@ class NeuralNetwork:
             for k in range(len(self.hiddenLayers.neurons[i].weights)):
                 turunan = dsum * total * self.inputs[k]
                 a.append(self.hiddenLayers.neurons[i].weights[k] - self.learningRate * turunan)
-            newWeight.append(a)
-        return newWeight
+            new_weight.append(a)
+        return new_weight
 
     def train(self):
-        w = self.derivativeOutputToHidden()
+        w = self.derivative_output_to_hidden()
         for i in range(len(self.outputLayers.neurons)):
             self.outputLayers.neurons[i].weights = w[i]
-        w = self.derivativeOutputToInput()
+        w = self.derivative_output_to_input()
         for i in range(len(self.hiddenLayers.neurons)):
             self.hiddenLayers.neurons[i].weights = w[i]
 
     def trainingDataset(self):
         for i in range(100000):
             for dataset in self.dataset:
-                self.feedForward(dataset[0])
-                self.getErrorTotal(dataset[1])
+                self.feed_forward(dataset[0])
+                self.get_error_total(dataset[1])
                 self.train()
-        for neuron_hidden in  self.hiddenLayers.neurons:
+        for neuron_hidden in self.hiddenLayers.neurons:
             print neuron_hidden.weights
         print "a"
-        for neuron_output in  self.outputLayers.neurons:
+        for neuron_output in self.outputLayers.neurons:
             print neuron_output.weights
 
