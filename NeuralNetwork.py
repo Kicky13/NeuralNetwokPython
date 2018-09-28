@@ -31,7 +31,7 @@ class NeuralNetwork:
         self.target = target
         self.error = []
         for i in range(len(self.outputLayers.neurons)):
-            self.error.append(self.outputLayers.neurons[i].calculateError(target[i]))
+            self.error.append(self.outputLayers.neurons[i].calculate_error(target[i]))
         return sum(self.error)
 
     def derivative_output_to_hidden(self):
@@ -39,7 +39,7 @@ class NeuralNetwork:
         # -(target - output)
         dout = []
         for i in range(len(self.outputLayers.neurons)):
-            dout.append(-1 * (self.target[i] - self.outputLayers.neurons[i].getOutput()))
+            dout.append(-1 * (self.target[i] - self.outputLayers.neurons[i].get_output()))
 
         # turunan output thd sum
         dsum = []
@@ -71,7 +71,7 @@ class NeuralNetwork:
             for j in range(len(self.outputLayers.neurons)):
                 # turunan error thd output
                 # -(target - output)
-                dout = -1 * (self.target[j] - self.outputLayers.neurons[j].getOutput())
+                dout = -1 * (self.target[j] - self.outputLayers.neurons[j].get_output())
                 # turunan output thd net
                 dsum = math.exp(-self.outputLayers.neurons[j].sum()) / (
                             (1 + math.exp(-self.outputLayers.neurons[j].sum())) ** 2)
@@ -95,7 +95,7 @@ class NeuralNetwork:
         for i in range(len(self.hiddenLayers.neurons)):
             self.hiddenLayers.neurons[i].weights = w[i]
 
-    def trainingDataset(self):
+    def training_dataset(self):
         for i in range(100000):
             for dataset in self.dataset:
                 self.feed_forward(dataset[0])

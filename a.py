@@ -26,4 +26,4 @@ nn.set_output_layer_weight(wo)
 for dataset in datasets:
     nn.add_dataset(dataset)
 
-nn.trainingDataset()
+nn.training_dataset()

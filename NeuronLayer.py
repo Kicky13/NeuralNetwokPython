@@ -15,6 +15,6 @@ class NeuronLayer:
     def feed_forward(self, inputs):
         outputs = []
         for i in range(len(self.neurons)):
-            self.neurons[i].setInputs(inputs)
-            outputs.append(self.neurons[i].getOutput())
+            self.neurons[i].set_inputs(inputs)
+            outputs.append(self.neurons[i].get_output())
         return outputs
