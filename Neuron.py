@@ -6,10 +6,10 @@ class Neuron:
     def __init__(self, bias):
         self.bias = bias
 
-    def setInputs(self, input):
+    def set_inputs(self, input):
         self.input = input
 
-    def setWeights(self, weights):
+    def set_weights(self, weights):
         self.weights = weights
 
     def sum(self):
@@ -18,13 +18,14 @@ class Neuron:
             jumlah += self.input[i] * self.weights[i]
         return jumlah + self.bias
 
-    def sigmoid(self, total):
+    @staticmethod
+    def sigmoid(total):
         return 1 / (1 + math.exp(-total))
 
-    def getOutput(self):
+    def get_output(self):
         self.output = self.sigmoid(self.sum())
         return self.output
 
-    def calculateError(self, ouputTarget):
-        return 0.5 * (ouputTarget - self.output) ** 2
+    def calculate_error(self, ouput_target):
+        return 0.5 * (ouput_target - self.output) ** 2
 
