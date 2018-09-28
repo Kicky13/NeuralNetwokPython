@@ -8,11 +8,11 @@ class NeuronLayer:
         for i in range(neuroncount):
             self.neurons.append(Neuron.Neuron(bias))
 
-    def setWeights(self, weights):
+    def set_weights(self, weights):
         for i in range(len(weights)):
             self.neurons[i].weights = weights[i]
 
-    def feedForward(self, inputs):
+    def feed_forward(self, inputs):
         outputs = []
         for i in range(len(self.neurons)):
             self.neurons[i].setInputs(inputs)
