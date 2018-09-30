@@ -26,6 +26,6 @@ class Neuron:
         self.output = self.sigmoid(self.sum())
         return self.output
 
-    def calculate_error(self, ouput_target):
-        return 0.5 * (ouput_target - self.output) ** 2
+    def calculate_error(self, output_target):
+        return 0.5 * (output_target - self.output) ** 2
 
