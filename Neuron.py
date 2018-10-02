@@ -29,3 +29,5 @@ class Neuron:
     def calculate_error(self, output_target):
         return 0.5 * (output_target - self.output) ** 2
 
+    def cobaDulu(varNum):
+        return "Coba aja dulu nomer ", varNum
